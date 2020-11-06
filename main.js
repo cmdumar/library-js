@@ -4,6 +4,21 @@ const container = document.createElement('div');
 
 body.appendChild(container);
 
+const form = document.createElement('form');
+form.setAttribute('method', 'post');
+form.setAttribute('action', 'submit.php');
+
+const title = document.createElement('input');
+title.setAttribute('type', 'text');
+title.setAttribute('name', 'title');
+
+const submit = document.createElement('input');
+submit.setAttribute('type', 'submit');
+submit.setAttribute('value', 'Submit');
+
+form.appendChild(title);
+form.appendChild(submit);
+
 const myLibrary = [
   {
     title: 'The Hobiit',
