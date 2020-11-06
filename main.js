@@ -11,12 +11,25 @@ form.setAttribute('action', 'submit.php');
 const title = document.createElement('input');
 title.setAttribute('type', 'text');
 title.setAttribute('name', 'title');
+title.setAttribute('placeholder', 'Book Title');
+
+const author = document.createElement('input');
+author.setAttribute('type', 'text');
+author.setAttribute('name', 'author');
+author.setAttribute('placeholder', 'Author\'s name');
+
+const pages = document.createElement('input');
+pages.setAttribute('type', 'number');
+pages.setAttribute('name', 'pages');
+pages.setAttribute('placeholder', 'Number of pages');
 
 const submit = document.createElement('input');
 submit.setAttribute('type', 'submit');
 submit.setAttribute('value', 'Submit');
 
 form.appendChild(title);
+form.appendChild(author);
+form.appendChild(pages);
 form.appendChild(submit);
 
 const myLibrary = [
@@ -36,7 +49,7 @@ const myLibrary = [
 //   // do stuff here
 // }
 
-function displayBooks(arr) {
+function booksList(arr) {
   for (let i = 0; i < arr.length; i += 1) {
     const bookCard = document.createElement('div');
     const title = document.createElement('h3');
@@ -54,4 +67,18 @@ function displayBooks(arr) {
   }
 }
 
-displayBooks(myLibrary);
+const newBtn = document.createElement('button');
+
+function main() {
+  booksList(myLibrary);
+  newBtn.textContent = 'New Book';
+  
+  container.appendChild(newBtn);
+  container.appendChild(form);
+}
+
+newBtn.addEventListener('click', function(e) {
+  form.classList.toggle('display');
+});
+
+main();
