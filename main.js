@@ -41,13 +41,16 @@ const myLibrary = [
   },
 ];
 
-// function Book() {
-//   // the constructor...
-// }
+function Book(title, author, pages) {
+  this.title = title;
+  this.author = author;
+  this.pages = pages;
+  this.read = 'not yet';
+}
 
-// function addBookToLibrary() {
-//   // do stuff here
-// }
+function addBookToLibrary() {
+
+}
 
 function booksList(arr) {
   for (let i = 0; i < arr.length; i += 1) {
