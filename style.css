@@ -1,18 +1,8 @@
 .display {
-	display: none;
+  display: none;
 }
 
 input[type="text"] {
-	display: block;
-	margin: 10px;
-}
-
-#submit-btn {
-	padding: 5px 10px;
-	background: gray;
-	color: black;
-	font-size: medium;
-	border: 1px solid black;
-	border-radius: 4px;
-	cursor: pointer;
+  display: block;
+  margin: 10px;
 }

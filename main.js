@@ -55,7 +55,7 @@ form.appendChild(title);
 form.appendChild(author);
 form.appendChild(pages);
 form.appendChild(readBook);
-form.appendChild(yesLabel)
+form.appendChild(yesLabel);
 form.appendChild(yes);
 form.appendChild(noLabel);
 form.appendChild(no);
@@ -65,11 +65,10 @@ form.classList.add('display');
 const myLibrary = [];
 
 function validateForm(form) {
-  if (form['title'].value.length < 5 || form['author'].value.length < 4 || form['pages'].value.length < 1) {
+  if (form.title.value.length < 5 || form.author.value.length < 4 || form.pages.value.length < 1) {
     return false;
-  } else {
-    return true;
   }
+  return true;
 }
 
 function Book(title, author, pages, read) {
@@ -79,45 +78,24 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 
-Book.prototype.readToggle = function () {
-  if (this.read == 'yes') {
+Book.prototype.readToggle = () => {
+  if (this.read === 'yes') {
     this.read = 'no';
   } else {
-    this.read = 'yes'
+    this.read = 'yes';
   }
-}
+};
 
-function addBookToLibrary(form) {
-  const radio = document.querySelectorAll('input[name="read"]')
-  let selected;
-  for (let r of radio) {
-    if (r.checked) {
-      selected = r.value;
-      break;
-    }
-  }
-
-  let book = new Book(
-      form.elements['title'].value,
-      form.elements['author'].value,
-      form.elements['pages'].value,
-      selected,
-  );
-
-  console.log(book);
-
-  // myLibrary.push({title: book.title, author: book.author, pages: book.pages, read: book.read});
-  myLibrary.push(book);
-  displayBook(book);
-}
+const newBtn = document.createElement('button');
+newBtn.textContent = 'New Book';
 
 function displayBook() {
   const books = document.querySelectorAll('.card');
-  books.forEach(function (book) {
-   book.remove();
+  books.forEach((book) => {
+    book.remove();
   });
 
-  myLibrary.forEach(function (book) {
+  myLibrary.forEach((book) => {
     const bookCard = document.createElement('div');
     bookCard.classList.add('card');
     bookCard.id = (myLibrary.indexOf(book)).toString();
@@ -125,6 +103,7 @@ function displayBook() {
     const author = document.createElement('p');
     const pages = document.createElement('p');
     const read = document.createElement('p');
+    read.id = `read-${myLibrary.indexOf(book)}`;
     const readStatus = document.createElement('button');
     const deleteBtn = document.createElement('button');
 
@@ -138,34 +117,52 @@ function displayBook() {
     bookCard.append(title, author, pages, read, readStatus, deleteBtn);
     container.insertBefore(bookCard, newBtn);
 
-    readStatus.onclick = function () {
+    readStatus.onclick = () => {
       book.readToggle();
-    }
+      document.querySelector(`#${read.id}`).textContent = book.read;
+    };
 
-    deleteBtn.addEventListener('click', function() {
+    deleteBtn.addEventListener('click', () => {
       myLibrary.splice(myLibrary.indexOf(book), 1);
       document.getElementById(`${bookCard.id}`).remove();
     });
   });
 }
 
-const newBtn = document.createElement('button');
-newBtn.textContent = 'New Book';
+function addBookToLibrary(form) {
+  const radio = document.querySelectorAll('input[name="read"]');
+  let selected;
+  radio.forEach((i) => {
+    if (i.checked) {
+      selected = i.value;
+    }
+  });
+
+  const book = new Book(
+    form.elements.title.value,
+    form.elements.author.value,
+    form.elements.pages.value,
+    selected,
+  );
+
+  myLibrary.push(book);
+  displayBook(book);
+}
 
 container.appendChild(newBtn);
 container.appendChild(form);
 displayBook();
 
-newBtn.addEventListener('click', function() {
+newBtn.addEventListener('click', () => {
   form.classList.toggle('display');
 });
 
-let errorMsg = document.createElement('p');
+const errorMsg = document.createElement('p');
 errorMsg.textContent = 'Invalid inputs';
 errorMsg.classList.add('display');
 container.insertBefore(errorMsg, form);
 
-submit.addEventListener('click', function(e) {
+submit.addEventListener('click', (e) => {
   e.preventDefault();
   if (validateForm(form.elements)) {
     addBookToLibrary(form);
