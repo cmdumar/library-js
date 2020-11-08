@@ -6,7 +6,7 @@ body.appendChild(container);
 
 const form = document.createElement('form');
 form.setAttribute('method', 'post');
-form.setAttribute('action', 'submit.php');
+form.setAttribute('action', '#');
 
 const title = document.createElement('input');
 title.setAttribute('type', 'text');
@@ -23,14 +23,15 @@ pages.setAttribute('type', 'number');
 pages.setAttribute('name', 'pages');
 pages.setAttribute('placeholder', 'Number of pages');
 
-const submit = document.createElement('input');
-submit.setAttribute('type', 'submit');
-submit.setAttribute('value', 'Submit');
+const submit = document.createElement('button');
+submit.setAttribute('type', 'button');
+submit.textContent = 'Add Book';
 
 form.appendChild(title);
 form.appendChild(author);
 form.appendChild(pages);
 form.appendChild(submit);
+form.classList.add('display');
 
 const myLibrary = [
   {
@@ -41,6 +42,14 @@ const myLibrary = [
   },
 ];
 
+function validateForm(form) {
+  if (form['title'].value.length < 5 || form['author'].value.length < 4 || form['pages'].value.length < 1) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
 function Book(title, author, pages) {
   this.title = title;
   this.author = author;
@@ -48,40 +57,50 @@ function Book(title, author, pages) {
   this.read = 'not yet';
 }
 
-function addBookToLibrary() {
-
+function addBookToLibrary(form) {
+  let book = new Book(form.elements['title'].value, form.elements['author'].value, form.elements['pages'].value);
+  displayBook(book);
 }
 
-function booksList(arr) {
-  for (let i = 0; i < arr.length; i += 1) {
-    const bookCard = document.createElement('div');
-    const title = document.createElement('h3');
-    const author = document.createElement('p');
-    const pages = document.createElement('p');
-    const read = document.createElement('p');
+function displayBook(book) {
+  const bookCard = document.createElement('div');
+  const title = document.createElement('h3');
+  const author = document.createElement('p');
+  const pages = document.createElement('p');
+  const read = document.createElement('p');
 
-    title.textContent = arr[i].title;
-    author.textContent = arr[i].author;
-    pages.textContent = arr[i].pages;
-    read.textContent = arr[i].read;
+  title.textContent = book.title;
+  author.textContent = book.author;
+  pages.textContent = book.pages;
+  read.textContent = book.read;
 
-    bookCard.append(title, author, pages, read);
-    container.appendChild(bookCard);
-  }
+  bookCard.append(title, author, pages, read);
+  container.insertBefore(bookCard, newBtn);
 }
 
 const newBtn = document.createElement('button');
+newBtn.textContent = 'New Book';
 
-function main() {
-  booksList(myLibrary);
-  newBtn.textContent = 'New Book';
-  
-  container.appendChild(newBtn);
-  container.appendChild(form);
-}
+container.appendChild(newBtn);
+container.appendChild(form);
+
 
 newBtn.addEventListener('click', function(e) {
   form.classList.toggle('display');
 });
 
-main();
+let errorMsg = document.createElement('p');
+errorMsg.textContent = 'Invalid inputs';
+errorMsg.classList.add('display');
+container.insertBefore(errorMsg, form);
+
+submit.addEventListener('click', function(e) {
+  if (validateForm(form.elements)) {
+    addBookToLibrary(form);
+    form.classList.toggle('display');
+    form.reset();
+    errorMsg.classList.add('display');
+  } else {
+    errorMsg.classList.remove('display');
+  }
+});
