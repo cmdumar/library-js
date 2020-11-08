@@ -65,7 +65,8 @@ form.classList.add('display');
 const myLibrary = [];
 
 function validateForm(form) {
-  if (form.title.value.length < 5 || form.author.value.length < 4 || form.pages.value.length < 1) {
+  if (form.title.value.length < 5 || form.author.value.length < 4 ||
+      form.pages.value.length < 1) {
     return false;
   }
   return true;
@@ -91,9 +92,7 @@ newBtn.textContent = 'New Book';
 
 function displayBook() {
   const books = document.querySelectorAll('.card');
-  books.forEach((book) => {
-    book.remove();
-  });
+  books.forEach((book) => { book.remove(); });
 
   myLibrary.forEach((book) => {
     const bookCard = document.createElement('div');
@@ -139,10 +138,10 @@ function addBookToLibrary(form) {
   });
 
   const book = new Book(
-    form.elements.title.value,
-    form.elements.author.value,
-    form.elements.pages.value,
-    selected,
+      form.elements.title.value,
+      form.elements.author.value,
+      form.elements.pages.value,
+      selected,
   );
 
   myLibrary.push(book);
@@ -153,9 +152,7 @@ container.appendChild(newBtn);
 container.appendChild(form);
 displayBook();
 
-newBtn.addEventListener('click', () => {
-  form.classList.toggle('display');
-});
+newBtn.addEventListener('click', () => { form.classList.toggle('display'); });
 
 const errorMsg = document.createElement('p');
 errorMsg.textContent = 'Invalid inputs';
