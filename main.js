@@ -78,7 +78,7 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 
-Book.prototype.readToggle = function() {
+Book.prototype.readToggle = function () {
   if (this.read === 'yes') {
     this.read = 'no';
   } else {
@@ -143,7 +143,7 @@ function addBookToLibrary(form) {
     form.elements.title.value,
     form.elements.author.value,
     form.elements.pages.value,
-    selected ? selected : 'no',
+    !selected ? 'no' : selected,
   );
 
   myLibrary.push(book);
