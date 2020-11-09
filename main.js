@@ -120,6 +120,7 @@ function displayBook() {
     readStatus.onclick = () => {
       book.readToggle();
       document.querySelector(`#${read.id}`).textContent = book.read;
+      myLibrary[myLibrary.indexOf(book)].read = book.read;
     };
 
     deleteBtn.addEventListener('click', () => {
