@@ -2,11 +2,17 @@
 
 > A Library application where users can add and remove books, set read status.
 
+![Screenshot](screenshot.png)
+
 ## Built with
 
 * Javascript
 * CSS
 * HTML
+
+## Live Link
+
+* [Live Link](https://raw.githack.com/mohammadumar28/library-js/library/index.html)
 
 ## To run the app
 
