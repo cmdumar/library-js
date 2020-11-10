@@ -71,25 +71,42 @@ function validateForm(form) {
   return true;
 }
 
-function newBook(title, author, pages, read) {
-  const data = {
-    title,
-    author,
-    pages,
-    read,
-  };
+// function newBook(title, author, pages, read) {
+//   const data = {
+//     title,
+//     author,
+//     pages,
+//     read,
+//   };
+//
+//   const readToggle = () => {
+//     if (data.read === 'yes') {
+//       data.read = 'no';
+//     } else {
+//       data.read = 'yes';
+//     }
+//   };
+//
+//   data.readToggle = readToggle;
+//
+//   return data;
+// }
 
-  const readToggle = () => {
-    if (data.read === 'yes') {
-      data.read = 'no';
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
+
+  readToggle = () => {
+    if (this.read === 'yes') {
+      this.read = 'no';
     } else {
-      data.read = 'yes';
+      this.read = 'yes';
     }
   };
-
-  data.readToggle = readToggle;
-
-  return data;
 }
 
 const newBtn = document.createElement('button');
@@ -144,7 +161,7 @@ function addBookToLibrary(form) {
     }
   });
 
-  const book = newBook(
+  const book = new Book(
     form.elements.title.value,
     form.elements.author.value,
     form.elements.pages.value,
