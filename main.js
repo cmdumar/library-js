@@ -71,20 +71,22 @@ function validateForm(form) {
   return true;
 }
 
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-}
-
-Book.prototype.readToggle = function () {
-  if (this.read === 'yes') {
-    this.read = 'no';
-  } else {
-    this.read = 'yes';
+function newBook(title, author, pages, read) {
+  const readToggle = function () {
+    if (this.read === 'yes') {
+      this.read = 'no';
+    } else {
+      this.read = 'yes';
+    } 
   }
-};
+  return {
+    title,
+    author,
+    pages,
+    read,
+    readToggle
+  }
+}
 
 const newBtn = document.createElement('button');
 newBtn.textContent = 'New Book';
@@ -139,7 +141,7 @@ function addBookToLibrary(form) {
     }
   });
 
-  const book = new Book(
+  const book = newBook(
     form.elements.title.value,
     form.elements.author.value,
     form.elements.pages.value,
