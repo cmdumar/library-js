@@ -79,7 +79,7 @@ function newBook(title, author, pages, read) {
     read,
   };
 
-  const readToggle = function () {
+  const readToggle = () => {
     if (data.read === 'yes') {
       data.read = 'no';
     } else {
